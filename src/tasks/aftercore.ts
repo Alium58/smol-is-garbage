@@ -7,6 +7,7 @@ import {
   getClanName,
   getWorkshed,
   guildStoreAvailable,
+  handlingChoice,
   haveEffect,
   haveEquipped,
   hippyStoneBroken,
@@ -512,33 +513,21 @@ export function AftercoreQuest(): Quest {
           have($item`Frosty's frosty mug`) &&
           have($item`Ol' Scratch's salad fork`),
         do: (): void => {
-          if (
-            mallPrice($item`Frosty's frosty mug`) < 200000 &&
-            mallPrice($item`Ol' Scratch's salad fork`) < 200000
-          )
-            cliExecute(
-              "acquire Pizza of Legend; acquire Frosty's frosty mug; acquire Ol' Scratch's salad fork"
-            );
+          if (!have($item`Pizza of Legend`)) {
+            cliExecute("acquire Pizza of Legend");
+          }
+          if (!have($item`Frosty's frosty mug`)) {
+            cliExecute("acquire Frosty's frosty mug");
+          }
+          if (!have($item`Ol' Scratch's salad fork`)) {
+            cliExecute("acquire Ol' Scratch's salad fork");
+          }
         },
       },
       {
         name: "Ascend Smol",
         completed: () => getCurrentLeg() >= Leg.Smol,
         do: (): void => {
-          /*printPermPlan();
-          if (targetPerms(false).find((sk) => !have(sk)))
-            throw new Error(
-              `Trying to ascend, but don't have the following targeted skills: [${targetPerms(false)
-                .filter((sk) => !have(sk))
-                .join(", ")}]`
-            );*/
-
-          /*const skillsToPerm = new Map();
-          targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));*/
-
-          //const skillsToPerm = new Map();
-          //targetPerms().forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
-
           ascend({
             path: $path`A Shrunken Adventurer am I`,
             playerClass: args.defaultclass,
@@ -551,6 +540,8 @@ export function AftercoreQuest(): Quest {
           if (visitUrl("choice.php").includes("somewhat-human-shaped mass of grey goo nanites"))
             runChoice(1);
           cliExecute("refresh all");
+          visitUrl("main.php");
+          while (handlingChoice()) runChoice(1);
         },
       },
     ],
