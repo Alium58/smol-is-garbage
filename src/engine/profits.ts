@@ -142,6 +142,7 @@ const specialValueLookup = new Map<Item, () => number>([
       ),
   ],
   [$item`fake hand`, () => 50000],
+  [$item`potted tea tree`, () => 0],
 ]);
 
 function getHistoricalSaleValue(item: Item) {
