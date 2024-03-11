@@ -3,3 +3,5 @@ node_modules
 /scripts/
 /relay/
 yarn.lock
+KoLmafia/scripts/smolisgarbage/smolisgarbage.js
+KoLmafia/relay/relay_smolisgarbage.js
