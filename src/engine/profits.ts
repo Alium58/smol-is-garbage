@@ -416,6 +416,6 @@ export function printProfits(records: Records): void {
   printProfitSegment(
     "Total",
     sum(records, () => true),
-    "black"
+    "blue"
   );
 }
