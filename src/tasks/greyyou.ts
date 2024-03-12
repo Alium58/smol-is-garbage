@@ -489,7 +489,7 @@ export function GyouQuests(): Quest[] {
         {
           name: "Garbo",
           ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
-          completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
+          completed: () => get("_garboCompleted") === args.garbo,
           prepare: () => uneffect($effect`Beaten Up`),
           do: () => cliExecute(args.garbo),
           post: () =>
